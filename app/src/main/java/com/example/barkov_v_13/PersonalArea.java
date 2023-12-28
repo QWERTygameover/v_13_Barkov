@@ -3,6 +3,7 @@ package com.example.barkov_v_13;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,11 +31,18 @@ public class PersonalArea extends AppCompatActivity {
         btnCall = findViewById(R.id.btnCall);
         btnSett = findViewById(R.id.btnSettings);
         btnExit = findViewById(R.id.btnExit);
+        tvLogin = findViewById(R.id.tvUser);
 
+
+        Cursor cursor = db.rawQuery("SELECT * FROM USER", null);
+
+        cursor.moveToLast();
+
+        tvLogin.setText(cursor.getString(1));
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_CALL);
+                Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:+79016714574"));
                 startActivity(intent);
             }
